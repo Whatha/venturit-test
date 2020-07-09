@@ -1,0 +1,54 @@
+
+<!-- Button trigger modal -->
+<button type="button" class="shadow btn btn-primary fab-button" data-toggle="modal" data-target="#staticBackdrop" (click)="setValues()">
+  <span class="material-icons">
+  add
+  </span>
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add person</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <!-- FORM -->
+        <form [formGroup]="this.personService.form">
+           <label for="exampleInputEmail1">Name</label>
+          <input placeholder="Name" formControlName="Name" type="text" class="form-control" required>
+          <div class="invalid-feedback">
+          Please choose a username.
+        </div>
+           <label for="exampleInputEmail1">Email address</label>
+           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          <input placeholder="Email" formControlName="Email" type="email" class="form-control">
+          <label for="exampleInputEmail1">Date of Birth</label>
+          <input placeholder="Date Of Birth" formControlName="DateOfBirth" type="date" class="form-control">
+          <label for="exampleInputEmail1">Country</label>
+          <input placeholder="Country" formControlName="Country" type="text" class="form-control">
+          <div class="image-container">
+          <img id="avatar-form" src="https://i.pinimg.com/originals/f5/1d/08/f51d08be05919290355ac004cdd5c2d6.png" alt="your image" class="image-form" />
+          </div>
+          <label class="btn btn-primary file-label" for="Avatar">Choose an avatar</label>
+          <input placeholder="Avatar" formControlName="Avatar" type="text" class="form-control" style="display:none">
+          <input id="Avatar" placeholder="Avatar"  type="file" class="inputfile form-control" (change)="loadImage($event,'-form')">
+          <progress *ngIf="percentage > 0 && percentage < 100" class="progress is-large is-success" value="{{percentage}}" max="100">{{percentage}}%</progress>
+        </form>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button class="btn btn-primary" [disabled]="!archivoForm.valid && (percentage > 0 && percentage < 100)" (click)="uploadImage()">
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

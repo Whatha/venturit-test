@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "venturit-test"
+    }
+  },
+  "defaultProject": "venturit-test",
+  "cli": {
+    "analytics": false
+  }
 }

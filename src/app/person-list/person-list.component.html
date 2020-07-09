@@ -1,0 +1,70 @@
+<h1>Persons:</h1>
+
+<div class="container card-container">
+  <div class="row">
+
+    <!--cards-->
+  <div *ngFor="let person of persons" class="col-sm-4">
+    <div class="shadow card">
+    <!--Image -->
+    <div class="image-container">
+    <img src={{person.data.Avatar}} class="card-img-top" alt="avatar-image">
+    </div>
+
+    <!--Card body-->
+    <div class="card-body">
+      <h5 class="card-title">{{person.data.Name}}</h5>
+      <p>Email: {{person.data.Email}}</p>
+      <p>Country: {{person.data.Country }}</p>
+      <p>Age: {{person.data.DateOfBirth | age }}</p>
+      <p class="card-text"></p>
+      <button type="button" (click)="setValues(person.data)" data-toggle="modal" [attr.data-target]="'#' + person.id" class="btn btn-primary">Edit info</button>
+      <button type="button" (click)="deletePerson(person.id)" class="btn btn-danger delete-button">Delete</button>
+    </div>
+
+
+
+    <!-- Modal for each item-->
+    <div class="modal fade" id="{{person.id}}" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Update {{person.data.Name}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="this.personService.form">
+               <label for="exampleInputEmail1">Name</label>
+              <input placeholder="Name" formControlName="Name" type="text" class="form-control" [attr.value]=" person.id">
+               <label for="exampleInputEmail1">Email address</label>
+               <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              <input placeholder="Email" formControlName="Email" type="email" class="form-control">
+              <label for="exampleInputEmail1">Date of Birth</label>
+              <input placeholder="Date Of Birth" formControlName="DateOfBirth" type="date" class="form-control">
+              <label for="exampleInputEmail1">Country</label>
+              <input placeholder="Country" formControlName="Country" type="text" class="form-control">
+              <div class="image-container">
+              <img id="avatar{{person.id}}" src="{{person.data.Avatar}}" alt="your image" class="image-form" />
+              </div>
+              <label class="btn btn-primary file-label" for="avt{{person.id}}">Choose an avatar</label>
+              <input id="avt{{person.id}}" placeholder="Avatar" type="file" class="inputfile form-control" (change)="loadImage($event,person)">
+              <progress *ngIf="percentage > 0 && percentage < 100" class="progress is-large is-success" value="{{percentage}}" max="100">{{percentage}}%</progress>
+
+            </form>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button class="btn btn-primary" [disabled]="!archivoForm.valid && (percentage > 0 && percentage < 100)" (click)="uploadImage(person)">
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <!-- /Modal for each item-->
+  </div>
+</div>
