@@ -98,9 +98,8 @@ footer {
   clear: both;
   position: relative;
   height: 75px;
-  margin-top: -75px;
 }
 
 .general-container {
-  min-height: 100vh;
+  min-height: 92vh;
 }
